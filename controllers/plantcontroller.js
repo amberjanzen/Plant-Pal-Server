@@ -7,7 +7,7 @@ const Plant = require("../db").import("../models/plant");
 
 router.get('/:locationId', validateSession, (req,res) => {
   let userid = req.user.id
-  Item.findAll({
+  Plant.findAll({
       where: {
           userId: userid,
           locationId: req.params.locationId

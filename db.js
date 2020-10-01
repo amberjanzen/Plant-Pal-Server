@@ -21,8 +21,8 @@ Plant.belongsTo(User);
 User.hasMany(Plant);
 
 
-// Location.belongsTo(User);
-// User.hasMany(Location);
+Location.belongsTo(User);
+User.hasMany(Location);
 
 
 // Plant.belongsTo(Location);
