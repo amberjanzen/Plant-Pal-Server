@@ -17,23 +17,27 @@ Plant = sequelize.import("./models/plant");
 Location = sequelize.import("./models/location");
 
 
-User.hasMany(Plant);
 Plant.belongsTo(User);
+User.hasMany(Plant);
 
 
-User.hasMany(Location);
-Location.belongsTo(User);
+// Location.belongsTo(User);
+// User.hasMany(Location);
 
+
+// Plant.belongsTo(Location);
+// Location.hasMany(Plant);
 
 Location.hasMany(Plant, {
-    foreignKey: "plantLocation",
+    foreignKey: "locationId",
     sourceKey: "locationId",
-    as: 'locations'
+    as: 'plant'
 });
-Plant.belongsTo(Location,{
-    foreignKey: "plantLocation",
+
+Plant.belongsTo(Location, {
+    foreignKey: "locationId",
     sourceKey: "locationId",
-    as: "locations"
+    as: "plantlocation"
 });
 
 

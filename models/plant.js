@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
       },
+      // locationId: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      // },
 
       plantName: {
         type: DataTypes.STRING,
@@ -30,7 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     }, {
       tableName: 'plant'
     });
-      
     // }, {
     //   tableName: 'plantLocation'
     // });

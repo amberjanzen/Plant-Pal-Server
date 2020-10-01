@@ -5,8 +5,32 @@ let validateSession = require("../middleware/validate-session");
 const Plant = require("../db").import("../models/plant");
 // const Location =require("../db").import("../models")
 
+router.get('/:locationId', validateSession, (req,res) => {
+  let userid = req.user.id
+  Item.findAll({
+      where: {
+          userId: userid,
+          locationId: req.params.locationId
+      }
+  })
+  .then(plant=> res.status(200).json(plant))
+  .catch(err => res.status(500).json({message: 'could not get plants.', error: err}))
+})
 
-
+router.post("/:locationId", validateSession, (req, res) => {
+  const plantEntry = {
+    plantName: req.body.plant.plantName,
+    plantType: req.body.plant.plantType,
+    sunRequirement: req.body.plant.sunRequirement,
+    waterNeeds: req.body.plant.waterNeeds,
+    plantCare: req.body.plant.plantCare,
+    userId: req.user.id,
+    locationId: req.params.locationId,
+  };
+  Plant.create(plantEntry)
+    .then((plant) => res.status(200).json(plant))
+    .catch((err) => res.status(500).json({ error: err }));
+});
 
 // POST:  http://localhost:4000/plant/create
 router.post("/create", validateSession, (req, res) => {
@@ -26,13 +50,17 @@ router.post("/create", validateSession, (req, res) => {
 
 
 // GET user plants:   http://localhost:4000/plant/
-router.get("/", validateSession, (req, res) => {
-    let userid = req.user.id;
-    Plant.findAll({
-      where: { userId: userid },
+router.get("/plant", validateSession, (req, res) => {
+    Plant.findOne({
+      where: { userId: req.user.id},
       // where: {userId: req.user.id , locationId: req.location.id},
     })
-      .then((plant) => res.status(200).json(plant))
+      .then(function createSuccess(data){
+        res.status(200).json({
+          message: 'plantinfo found',
+          data:data
+        })
+      })
       .catch((err) => res.status(500).json({ error: err }));
   });
 
