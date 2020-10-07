@@ -22,6 +22,7 @@ router.post("/:locationId", validateSession, (req, res) => {
   .then((plant) => res.status(200).json(plant))
   .catch((err) => res.status(500).json({ error: err }));
 });
+// find one-location - promise holder - placeholder  -plant.create
 
 // POST plants without location:  http://localhost:4000/plant/create
 router.post("/create", validateSession, (req, res) => {
@@ -87,7 +88,7 @@ router.get("/myplants", validateSession, (req, res) => {
 
 
 // GET all plants:   http://localhost:4000/plant/all
-router.get("/all", validateSession, (req, res) => {
+router.get("/all", (req, res) => {
   Plant.findAll()
     .then((plant) => res.status(200).json(plant))
     .catch((err) => res.status(500).json({ error: err }));

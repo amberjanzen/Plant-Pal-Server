@@ -14,7 +14,7 @@ sequelize.sync();
 //     res.send('test endpoint')
 // })
 app.use('/user', user);
-
+// app.use(require("./middleware/validate-session"));
 app.use('/plant', plant);
 
 app.use('/location', location);
