@@ -1,9 +1,12 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('plant-pal-server', 'postgres', 'Grapesn2020.',
-{
-    host: 'localhost',
-    dialect: 'postgres'
+const sequelize = new Sequelize(process.env.DATABASE_URL,  { 
+    dialect: 'postgres',
 });
+// const sequelize = new Sequelize('server', 'postgres', 'pspass',
+// {
+//     host: 'localhost',
+//     dialect: 'postgres'
+// });
 sequelize.authenticate().then(
     function(){
         console.log('connected to plantpal database');

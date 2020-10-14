@@ -94,6 +94,16 @@ router.delete("/", validateSession, function (req, res) {
 
 // GET user: http://localhost:4000/user/
 
+router.get('/', validateSession, (req,res) => {
+  let userid = req.user.id
+  User.findOne({
+      where: {id: userid}
+  })
+  .then(user => res.status(200).json(user))
+  .catch(err => res.status(500).json({message: 'Could not get user information. Please try again.', error: err}))
+})
+
+
 
 router.get("/all",validateSession,(req, res) => {
     if (!req.err && req.user.admin){

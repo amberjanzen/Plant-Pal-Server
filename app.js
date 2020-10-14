@@ -19,6 +19,6 @@ app.use('/plant', plant);
 
 app.use('/location', location);
 
-app.listen(4000, function(){
-    console.log('App is listening on port 4000')
+app.listen(process.env.PORT, () =>{
+    console.log(`App is listening on port ${process.env.PORT}`)
 });

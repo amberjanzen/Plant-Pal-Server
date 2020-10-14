@@ -25,20 +25,20 @@ router.post("/:locationId", validateSession, (req, res) => {
 // find one-location - promise holder - placeholder  -plant.create
 
 // POST plants without location:  http://localhost:4000/plant/create
-router.post("/create", validateSession, (req, res) => {
-  const plantEntry = {
-    plantName: req.body.plant.plantName,
-    plantType: req.body.plant.plantType,
-    sunRequirement: req.body.plant.sunRequirement,
-    waterNeeds: req.body.plant.waterNeeds,
-    plantCare: req.body.plant.plantCare,
-    userId: req.user.id,
-    // locationId: req.location.id
-  };
-  Plant.create(plantEntry)
-  .then((plant) => res.status(200).json(plant))
-  .catch((err) => res.status(500).json({ error: err }));
-});
+// router.post("/create", validateSession, (req, res) => {
+//   const plantEntry = {
+//     plantName: req.body.plant.plantName,
+//     plantType: req.body.plant.plantType,
+//     sunRequirement: req.body.plant.sunRequirement,
+//     waterNeeds: req.body.plant.waterNeeds,
+//     plantCare: req.body.plant.plantCare,
+//     userId: req.user.id,
+//     // locationId: req.location.id
+//   };
+//   Plant.create(plantEntry)
+//   .then((plant) => res.status(200).json(plant))
+//   .catch((err) => res.status(500).json({ error: err }));
+// });
 
 //GET get plants by location: http://localhost:4000/plant/:locationId
 
@@ -103,10 +103,10 @@ router.put("/update/:id", validateSession, (req, res) => {
     sunRequirement: req.body.plant.sunRequirement,
     waterNeeds: req.body.plant.waterNeeds,
     plantCare: req.body.plant.plantCare,
+
   };
   const query = { where: { 
-    plantId: req.params.id, 
-     }};
+    id: req.params.id }};
  
 
 
@@ -117,7 +117,7 @@ router.put("/update/:id", validateSession, (req, res) => {
 
 // DELETE: delete a plant http://localhost:4000/plant/:id
 router.delete("/:id", (req, res) => {
-    Plant.destroy({ where: { plantId: req.params.id } })
+    Plant.destroy({ where: { id: req.params.id  } })
       .then((plant) => res.status(200).json({plant, message: "plant entry has successfully deleted"}))
       .catch((err) => res.json(req.errors));
   });
