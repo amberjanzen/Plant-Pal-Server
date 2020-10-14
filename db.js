@@ -1,9 +1,12 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('plant-pal-server', 'postgres', 'Grapesn2020.',
-{
-    host: 'localhost',
-    dialect: 'postgres'
+const sequelize = new Sequelize(process.env.DATABASE_URL,  { 
+    dialect: 'postgres',
 });
+// const sequelize = new Sequelize('server', 'postgres', 'pspass',
+// {
+//     host: 'localhost',
+//     dialect: 'postgres'
+// });
 sequelize.authenticate().then(
     function(){
         console.log('connected to plantpal database');
@@ -17,23 +20,27 @@ Plant = sequelize.import("./models/plant");
 Location = sequelize.import("./models/location");
 
 
-User.hasMany(Plant);
 Plant.belongsTo(User);
+User.hasMany(Plant);
 
 
-User.hasMany(Location);
 Location.belongsTo(User);
+User.hasMany(Location);
 
+
+// Plant.belongsTo(Location);
+// Location.hasMany(Plant);
 
 Location.hasMany(Plant, {
-    foreignKey: "plantLocation",
+    foreignKey: "locationId",
     sourceKey: "locationId",
-    as: 'locations'
+    as: 'plant'
 });
-Plant.belongsTo(Location,{
-    foreignKey: "plantLocation",
+
+Plant.belongsTo(Location, {
+    foreignKey: "locationId",
     sourceKey: "locationId",
-    as: "locations"
+    as: "plantlocation"
 });
 
 

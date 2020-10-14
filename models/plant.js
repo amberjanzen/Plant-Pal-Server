@@ -1,11 +1,15 @@
 module.exports = (sequelize, DataTypes) => {
     const Plant = sequelize.define("plant", {
-      plantId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
-      },
+      // plantId: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      //   primaryKey: true,
+      //   autoIncrement: true
+      // },
+      // locationId: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      // },
 
       plantName: {
         type: DataTypes.STRING,
@@ -30,7 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     }, {
       tableName: 'plant'
     });
-      
     // }, {
     //   tableName: 'plantLocation'
     // });
