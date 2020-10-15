@@ -103,10 +103,12 @@ router.put("/update/:id", validateSession, (req, res) => {
     sunRequirement: req.body.plant.sunRequirement,
     waterNeeds: req.body.plant.waterNeeds,
     plantCare: req.body.plant.plantCare,
+    locationId: req.params.locationId,
+    plantId: req.params.plantId,
 
   };
   const query = { where: { 
-    id: req.params.id }};
+    plantId: req.params.id, locationId: req.params.id }};
  
 
 
@@ -116,8 +118,8 @@ router.put("/update/:id", validateSession, (req, res) => {
 });
 
 // DELETE: delete a plant http://localhost:4000/plant/:id
-router.delete("/:id", (req, res) => {
-    Plant.destroy({ where: { id: req.params.id  } })
+router.delete("/:id", validateSession, (req, res) => {
+    Plant.destroy({ where: { plantId: req.params.id, locationId: req.params.id  } })
       .then((plant) => res.status(200).json({plant, message: "plant entry has successfully deleted"}))
       .catch((err) => res.json(req.errors));
   });
