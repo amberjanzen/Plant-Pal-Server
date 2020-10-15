@@ -1,7 +1,9 @@
 let express = require('express');
+const validateAdmin = require('../middleware/validate-admin');
 let router = express.Router();
 let validateSession = require("../middleware/validate-session");
 const Location = require("../db").import("../models/location");
+
 
 // POST:  http://localhost:4000/location/create
 router.post("/create", validateSession, (req, res) => {
@@ -88,8 +90,14 @@ router.post("/create", validateSession, (req, res) => {
   )
 
 
-// router.get('/locationtest', function(req, res){
-//     res.send('location endpoint test')
-// })
+/******** Admin **********/
+
+// get all locations
+router.get("/admin/all", validateAdmin, (req, res) => {
+  Location.findAll()
+  .then((location) => res.status(200).json(location))
+  .catch((err) => res.status(500).json({ error: err }));
+});
+
 
 module.exports = router
